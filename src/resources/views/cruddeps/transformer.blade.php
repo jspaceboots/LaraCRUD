@@ -1,6 +1,6 @@
-<?php
 
-namespace {{config('crud.namespaces.transformers')}}};
+
+namespace {{ltrim(rtrim(config('crud.namespaces.transformers'), '\\'), '\\')}};
 
 class {{$model}}Transformer extends \jspaceboots\LaraCRUD\Transformers\AbstractTransformer {
 

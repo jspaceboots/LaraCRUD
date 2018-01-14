@@ -2,9 +2,15 @@
 
 namespace jspaceboots\LaraCRUD\Factories;
 
+use jspaceboots\LaraCRUD\Helpers\CrudHelper;
+
 class AbstractFactory {
+    public function __construct() {
+        $this->helper = new CrudHelper();
+    }
+
     public function persist($params) {
-        $modelClass = "\\App\\Models\\" . getModelFromClass(get_called_class());
+        $modelClass = config('crud.namespaces.models') . $this->helper->getModelFromClass(get_called_class());
         $entity = null;
         $isUpdating = array_key_exists('id', $params);
 

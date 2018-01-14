@@ -2,7 +2,7 @@
 
 namespace jspaceboots\LaraCRUD;
 
-use App\Console\Commands\MakeModelCommand;
+use jspaceboots\LaraCRUD\Commands\MakeModelCommand;
 use Illuminate\Support\ServiceProvider;
 
 class LaraCRUDServiceProvider extends ServiceProvider
@@ -14,7 +14,8 @@ class LaraCRUDServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([__DIR__ . '/src/Config/crud.php' => config_path('crud.php'),]);
+        $this->publishes([__DIR__ . '/Config/crud.php' => config_path('crud.php')], 'config');
+        $this->publishes([__DIR__ . '/public' => public_path('vendor/LaraCRUD')], 'public');
         $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'LaraCRUD');
 
@@ -32,6 +33,6 @@ class LaraCRUDServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->register(\jspaceboots\LaraCRUD\Providers\CrudServiceProvider::class);
     }
 }

@@ -3,6 +3,7 @@
     $relationTypes = [];
     $datetimeTypes = [];
     $numberTypes = [];
+    $textTypes = [];
 
     foreach ($meta['fields'] as $field) {
         if ($field->getType()->getName() === 'string' && $field->getName() !== 'id' && strpos($field->getName(), '_id') === false) {
@@ -17,8 +18,12 @@
             $datetimeTypes[] = $field;
         }
 
-        if ($field->getType()->getName() === 'integer') {
+        if ($field->getType()->getName() === 'integer' && $field->getName() !== 'id' && strpos($field->getName(), '_id') === false) {
             $numberTypes[] = $field;
+        }
+
+        if ($field->getType()->getName() === 'text') {
+            $textTypes[] = $field;
         }
     }
 @endphp
@@ -28,21 +33,29 @@
     <div style="display: flex; flex-wrap: wrap;">
         @foreach($stringTypes as $field)
         <div style="margin-right: 1em;">
-            <label style="display:block;">{{ucwords($field->getName())}}</label>
+            <label style="display:block;">{{ucwords(str_replace('_', ' ', $field->getName()))}}</label>
             <input type="text" class="form-control" name="{{$field->getName()}}" value="{{$meta['editing'] ? $data[$field->getName()] : ''}}" />
         </div>
         @endforeach
         @foreach($numberTypes as $field)
         <div style="margin-right: 1em;">
-            <label style="display:block;">{{ucwords($field->getName())}}</label>
+            <label style="display:block;">{{ucwords(str_replace('_', ' ', $field->getName()))}}</label>
             <input type="number" class="form-control" name="{{$field->getName()}}" value="{{$meta['editing'] ? $data[$field->getName()] : ''}}" />
         </div>
         @endforeach
+        @foreach($textTypes as $field)
+            <div style="margin-right: 1em;">
+                <label style="display:block;">{{ucwords(str_replace('_', ' ', $field->getName()))}}</label>
+                <textarea class="form-control" name="{{$field->getName()}}">{{$meta['editing'] ? $data[$field->getName()] : ''}}</textarea>
+            </div>
+        @endforeach
+        @foreach($datetimeTypes as $field)
+            <div style="margin-right: 1em;">
+                <label style="display:block;">{{ucwords(str_replace('_', ' ', $field->getName()))}}</label>
+                <input class="datepicker form-control" name="{{$field->getName()}}" value="{{$meta['editing'] ? $data[$field->getName()] : ''}}" type="text" />
+            </div>
+        @endforeach
     </div>
-
-    @foreach($datetimeTypes as $field)
-    <p>TODO: Implement datetime types</p>
-    @endforeach
 
     <div style="display: flex; flex-wrap: wrap; margin-top: 1em;">
         @foreach($meta['relations'] as $field => $fieldMeta)

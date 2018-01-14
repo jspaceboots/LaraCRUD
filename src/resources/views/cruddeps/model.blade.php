@@ -1,6 +1,6 @@
-<?php
 
-namespace {{config('crud.namespaces.models')}};
+
+namespace {{ltrim(rtrim(config('crud.namespaces.models'), '\\'), '\\')}};
 
 use Illuminate\Database\Eloquent\Model;
 @if(config('crud.useUuids'))

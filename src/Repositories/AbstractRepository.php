@@ -2,6 +2,7 @@
 
 namespace jspaceboots\LaraCRUD\Repositories;
 
+use jspaceboots\LaraCRUD\Helpers\CrudHelper;
 use Illuminate\Database\Eloquent\Collection;
 
 class AbstractRepository
@@ -12,31 +13,31 @@ class AbstractRepository
     protected $filterableFields = [];
     protected $relatedModelCreate = [];
 
+    public function __construct() {
+        $this->helper = new CrudHelper();
+    }
+
     public function get($offset = 0, $limit = null, $orderBy = 'created_at', $order = 'desc', $search = null) {
         if (!$limit) { $limit = config('crud.limit'); }
 
-        $modelName = getModelFromClass(get_called_class());
-        $model = "\\App\\Models\\$modelName";
-        $httpTransformerClass = "\\App\\Transformers\\Http\\{$modelName}Transformer";
-        $apiTransformerClass = "\\App\\Transformers\\Api\\{$modelName}Transformer";
+        $modelName = $this->helper->getModelFromClass(get_called_class());
+        $model = config('crud.namespaces.models') . $modelName;
+        $transformerClass = config('crud.namespaces.transformers') . "{$modelName}Transformer";
         $normalizationExceptions = config('crud.tableNormalizationExceptions');
 
-        $modelTable = getTableNameFromModelName($modelName);
+        $modelTable = $this->helper->getTableNameFromModelName($modelName);
         $qb = $this->initQueryBuilder($orderBy, $model, $order, $modelTable, $limit, $offset, $search, $normalizationExceptions);
         $entities = $qb->get();
-        $httpTransformer = new $httpTransformerClass;
-        $apiTransformer = new $apiTransformerClass;
+        $transformer = new $transformerClass;
 
         $returnArray = [];
         // todo: move transformers out of the repo you madman
         foreach($entities as $entity) {
+            $entityData = $transformer->transform($entity);
             if (!request()->isJson()) {
-                $entityData = $httpTransformer->transform($entity);
                 foreach($this->fieldTransformers as $field => $callback) {
                     $entityData[$field] = $callback($entityData);
                 }
-            } else {
-                $entityData = $apiTransformer->transform($entity);
             }
 
             $returnArray[] = $entityData;
@@ -78,7 +79,7 @@ class AbstractRepository
     }
 
     public function total($search = null) {
-        $model = "\\App\\Models\\" . getModelFromClass(get_called_class());
+        $model = config('crud.namespaces.models') . $this->helper->getModelFromClass(get_called_class());
         if ($search) {
             //return $model::where($this->searchField, 'like', '%' . $search . '%')->count();
         }
@@ -87,7 +88,7 @@ class AbstractRepository
     }
 
     public function getAllIdsIndexedBy($indexedBy) {
-        $model = "\\App\\Models\\" . getModelFromClass(get_called_class());
+        $model = config('crud.namespaces.models') . $this->helper->getModelFromClass(get_called_class());
         $result = $model::all(array_merge(['id'], $indexedBy));
 
         $ms = ['N/A' => null];
@@ -103,7 +104,7 @@ class AbstractRepository
     }
 
     public function getRelatedModelValues($id) {
-        $model = "\\App\\Models\\" . getModelFromClass(get_called_class());
+        $model = config('crud.namespaces.models') . $this->helper->getModelFromClass(get_called_class());
         $entity = $model::where(['id' => $id])->first();
         $values = [];
 

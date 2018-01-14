@@ -20,7 +20,7 @@ class AbstractTransformer {
             if (strpos($column, '_id') !== false) {
                 $fkColumn = $column;
                 $model = str_replace(' ', '', ucwords(str_replace('_', ' ', str_replace('_id', '', $fkColumn))));
-                $transformerClass = "\\App\\Transformers\\Http\\{$model}Transformer";
+                $transformerClass = config('crud.namespaces.transformers') . "{$model}Transformer";
                 $transformer = new $transformerClass;
                 if (method_exists($transformer, "transform$model")) {
                     if (in_array($column, array_keys($this->overide))) {

@@ -53,7 +53,7 @@ $makeLink = function ($limit, $offset, $sortField, $sortDir) use ($meta) {
                     @endif
                     <?php $dir = ($heading == $sortField) ? $invertedDir : 'desc'; ?>
                     <a href='{{"{$route}?limit={$meta['limit']}&offset={$meta['offset']}&sortBy={$heading} {$dir}&search={$meta['search']}"}}'>
-                        {{ strpos($heading, '_id') !== false ? str_replace('_id', '', $heading) : $heading }}
+                        {{ strpos($heading, '_id') !== false ? str_replace('_', ' ', str_replace('_id', '', $heading)) : str_replace('_', ' ', $heading) }}
                     </a>
                     @if(in_array($heading, array_keys($filterableFields)))
                         <a href="#" onclick="showFilterDialog('{{$heading}}')"><i class="ti-filter filter"></i></a>
@@ -79,7 +79,6 @@ $makeLink = function ($limit, $offset, $sortField, $sortDir) use ($meta) {
               filterElem.parentNode.parentNode.style.display = 'none';
               filterElem.style.display = 'none';
             }
-
           }
         </script>
         </thead>
@@ -122,10 +121,15 @@ $makeLink = function ($limit, $offset, $sortField, $sortDir) use ($meta) {
                 @endforeach
             </td>
         </tr>
+        @if(count($tableRows) == 0)
+            <tr>
+                <td colspan={{count($tableColumns)}}><p>No data found</p></td>
+            </tr>
+        @endif
         @foreach($tableRows as $row)
             <tr>
                 @foreach($tableColumns as $col)
-                    @if($col == 'id')
+                    @if($col == 'id' && config('crud.useUuids'))
                         <td>{{ substr($row[$col], 0, 4) . '...' . substr($row[$col], -4) }}</td>
                     @else
                         <td>{{$row[$col]}}</td>

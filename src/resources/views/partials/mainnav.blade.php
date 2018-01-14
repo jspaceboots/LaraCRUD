@@ -1,12 +1,7 @@
-<?php $route = request()->route()->getName() ?>
+<?php $route = request()->route()->getName(); ?>
 <ul class="nav">
     @if (Auth::check())
-        <li {{$route === 'dashboard'}}>
-            <a href="{{route('dashboard')}}">
-                <i class="ti-bar-chart"></i>
-                <p>Dashboard</p>
-            </a>
-        </li>
+        @if (config('crud.useSubnav'))
         <li {{in_array($route, config('crud.routing')) ? "class=active" : ''}}>
             <a data-toggle="collapse" data-target="#coreModelsNav" href="#coreModelsNav" class="collapsed">
                 <i class="ti-linux"></i>
@@ -14,6 +9,7 @@
             </a>
             <div class="collapse" id="coreModelsNav">
                 <ul class="nav">
+        @endif
                     @foreach(config('crud.routing') as $crudRoute => $meta)
                         <li {{$route == $crudRoute ? "class=active" : ''}}>
                             <a href="{{route($meta && array_key_exists('name', $meta) ? $meta['name'] : $crudRoute)}}">
@@ -22,9 +18,11 @@
                             </a>
                         </li>
                     @endforeach
+        @if (config('crud.useSubnav'))
                 </ul>
             </div>
         </li>
+        @endif
     @else
         <li class="active">
             <a href="{{ route('login')  }}">

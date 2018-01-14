@@ -3,10 +3,15 @@
 namespace jspaceboots\LaraCRUD\Services;
 
 use jspaceboots\LaraCRUD\Interfaces\CrudServiceInterface;
+use jspaceboots\LaraCRUD\Helpers\CrudHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CrudService implements CrudServiceInterface {
+    public function __construct() {
+        $this->helper = new CrudHelper();
+    }
+
     public function create(Request $request) {
         [$route, $model, $search, $offset, $limit, $sortBy, $filters] = $this->parseRequest($request);
         $schema = DB::getDoctrineSchemaManager();
@@ -14,7 +19,7 @@ class CrudService implements CrudServiceInterface {
             'data' => [],
             'links' => $this->getLinks(),
             'meta' => [
-                'fields' => $schema->listTableColumns(getTableNameFromModelName($model))
+                'fields' => $schema->listTableColumns($this->helper->getTableNameFromModelName($model))
             ]
         ];
 
@@ -94,8 +99,6 @@ class CrudService implements CrudServiceInterface {
             'data' => $entity->toArray(),
             'links' => $this->getLinks(),
             'meta' => [
-                'quote' => getQuote(),
-                'luckyNumbers' => getLuckyNumbers(),
                 'redirect' => $indexRoute
             ]
         ];
@@ -118,8 +121,8 @@ class CrudService implements CrudServiceInterface {
         $model = config('crud.namespaces.models') . $this->getModelName($request->route()->getName());
         //$repositoryClass = $this->getRepositoryClass($model);
         //$repository = app($repositoryClass);
-
-        return $model::getFilterableFields();
+        return [];
+        //return $model::getFilterableFields();
     }
 
     public function validate(Request $request) {

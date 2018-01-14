@@ -27,6 +27,8 @@ return [
             'middleware' => ['auth:api']
         ]
     ],
+    'overrideAuthViews' => true,
+    'useSubnav' => false,
     'useUuids' => false // Requires https://github.com/webpatser/laravel-uuid
                         // If you turn this on/off you will need to update your migrations for any existing models
 ];

@@ -1,4 +1,4 @@
-@extends('layouts.template')
+@extends('LaraCRUD::layouts.template')
 
 @section('content')
     <div class="row">
@@ -15,10 +15,10 @@
 
                 <div class="header" style="display: inline-block;">
                     <h4 class="title">{{ucwords(str_replace('_', ' ', request()->route()->getName()))}}</h4>
-                    <p class="category">{{$meta['quote']}}</p>
+                    <p class="category">&nbsp;</p>
                 </div>
 
-                @include('partials/datatable')
+                @include('LaraCRUD::partials.datatable')
             </div>
         </div>
     </div>
