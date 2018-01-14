@@ -7,34 +7,40 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Provides quick HTML and JSON API interfaces for model CRUD.
+Provides quick application scaffolding as well as HTML and JSON API interfaces for model CRUD.
 
-## Structure
+## Project Status
+ALPHA
 
-If any of the following are applicable to your project, then the directory structure should follow industry best practices by being named the following.
-
-```
-bin/        
-config/
-src/
-tests/
-vendor/
-```
-
+Super early days, feature incomplete, USE AT YOUR OWN RISK.
 
 ## Install
 
 Via Composer
 
 ``` bash
-$ composer require :vendor/:package_name
+$ composer require jspaceboots/laracrud
 ```
 
 ## Usage
 
+First you need to publish the config and public assets:
 ``` php
-$skeleton = new League\Skeleton();
-echo $skeleton->echoPhrase('Hello, League!');
+php artisan vendor:publish
+```
+
+Next modify your applications config/crud.php to suit the needs of your project. Once you're done:
+
+```php
+php artisan laracrud:make:model MySingularModel
+```
+
+This will generate the files necessary for LaraCRUD to hook into your data model. You can extend these
+classes with logic specific to your application and later remove their dependancy on LaraCRUD with the 
+eject command:
+
+```php
+php artisan laracrud:eject
 ```
 
 ## Change log

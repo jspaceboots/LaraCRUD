@@ -1,7 +1,7 @@
 {
-    "name": "jspaceboots/LaraCRUD",
+    "name": "jspaceboots/laracrud",
     "type": "library",
-    "description": "Provides quick HTML & JSON API interfaces for model CRUD.",
+    "description": "Provides quick application scaffolding as well as HTML & JSON API interfaces for model CRUD.",
     "keywords": [
         "jspaceboots",
         "LaraCRUD"
@@ -12,7 +12,7 @@
         {
             "name": "Johnny Spaceboots",
             "email": "jspaceboots@gunpla.builders",
-            "homepage": "",
+            "homepage": "https://github.com/jspaceboots/LaraCRUD",
             "role": "Developer"
         }
     ],
