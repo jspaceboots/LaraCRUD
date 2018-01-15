@@ -1,8 +1,8 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Factories;
+namespace jspaceboots\laracrud\Factories;
 
-use jspaceboots\LaraCRUD\Helpers\CrudHelper;
+use jspaceboots\laracrud\Helpers\CrudHelper;
 
 class AbstractFactory {
     public function __construct() {

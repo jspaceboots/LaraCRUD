@@ -1,8 +1,8 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Repositories;
+namespace jspaceboots\laracrud\Repositories;
 
-use jspaceboots\LaraCRUD\Helpers\CrudHelper;
+use jspaceboots\laracrud\Helpers\CrudHelper;
 use Illuminate\Database\Eloquent\Collection;
 
 class AbstractRepository

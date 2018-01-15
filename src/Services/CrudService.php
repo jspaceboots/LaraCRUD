@@ -1,9 +1,9 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Services;
+namespace jspaceboots\laracrud\Services;
 
-use jspaceboots\LaraCRUD\Interfaces\CrudServiceInterface;
-use jspaceboots\LaraCRUD\Helpers\CrudHelper;
+use jspaceboots\laracrud\Interfaces\CrudServiceInterface;
+use jspaceboots\laracrud\Helpers\CrudHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

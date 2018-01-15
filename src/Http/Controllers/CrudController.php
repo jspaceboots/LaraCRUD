@@ -1,9 +1,9 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Http\Controllers;
+namespace jspaceboots\laracrud\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use jspaceboots\LaraCRUD\Interfaces\CrudServiceInterface;
+use jspaceboots\laracrud\Interfaces\CrudServiceInterface;
 use Illuminate\Http\Request;
 
 class CrudController extends Controller

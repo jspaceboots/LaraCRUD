@@ -1,6 +1,6 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Helpers;
+namespace jspaceboots\laracrud\Helpers;
 
 class CrudHelper {
 

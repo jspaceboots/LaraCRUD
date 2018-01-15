@@ -1,5 +1,5 @@
 <?php
-namespace jspaceboots\LaraCRUD\Traits;
+namespace jspaceboots\laracrud\Traits;
 
 use Webpatser\Uuid\Uuid as U;
 

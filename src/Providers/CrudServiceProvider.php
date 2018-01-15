@@ -1,9 +1,9 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Providers;
+namespace jspaceboots\laracrud\Providers;
 
-use jspaceboots\LaraCRUD\Interfaces\CrudServiceInterface;
-use jspaceboots\LaraCRUD\Services\CrudService;
+use jspaceboots\laracrud\Interfaces\CrudServiceInterface;
+use jspaceboots\laracrud\Services\CrudService;
 use Illuminate\Support\ServiceProvider;
 
 class CrudServiceProvider extends ServiceProvider

@@ -1,11 +1,11 @@
 <?php
 
-namespace jspaceboots\LaraCRUD;
+namespace jspaceboots\laracrud;
 
-use jspaceboots\LaraCRUD\Commands\MakeModelCommand;
+use jspaceboots\laracrud\Commands\MakeModelCommand;
 use Illuminate\Support\ServiceProvider;
 
-class LaraCRUDServiceProvider extends ServiceProvider
+class laracrudServiceProvider extends ServiceProvider
 {
     /**
      * Perform post-registration booting of services.
@@ -33,6 +33,6 @@ class LaraCRUDServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register(\jspaceboots\LaraCRUD\Providers\CrudServiceProvider::class);
+        $this->app->register(\jspaceboots\laracrud\Providers\CrudServiceProvider::class);
     }
 }

@@ -3,7 +3,7 @@
 Route::group(['middleware' => ['web', 'auth']], function() {
     if (config('crud.routing')) {
         foreach (config('crud.routing') as $route => $meta) {
-            $controller = array_key_exists('controller', $meta) ? $meta['controller'] : '\\jspaceboots\\LaraCRUD\\Http\\Controllers\\CrudController';
+            $controller = array_key_exists('controller', $meta) ? $meta['controller'] : '\\jspaceboots\\laracrud\\Http\\Controllers\\CrudController';
             $name = array_key_exists('name', $meta) ? $meta['name'] : $route;
 
             Route::get('crud/' . $route, "$controller@index")->name("$name");

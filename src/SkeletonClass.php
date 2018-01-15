@@ -1,6 +1,6 @@
 <?php
 
-namespace jspaceboots\LaraCRUD;
+namespace jspaceboots\laracrud;
 
 class SkeletonClass
 {

@@ -2,6 +2,6 @@
 
 namespace {{ltrim(rtrim(config('crud.namespaces.factories'), '\\'), '\\')}};
 
-class {{$model}}Factory extends \jspaceboots\LaraCRUD\Factories\AbstractFactory {
+class {{$model}}Factory extends \jspaceboots\laracrud\Factories\AbstractFactory {
 
 }
