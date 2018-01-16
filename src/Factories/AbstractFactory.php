@@ -2,7 +2,7 @@
 
 namespace jspaceboots\LaraCRUD\Factories;
 
-use jspaceboots\LaraCRUD\Helpers\CrudHelper;
+use jspaceboots\laracrud\Helpers\CrudHelper;
 
 class AbstractFactory {
     public function __construct() {

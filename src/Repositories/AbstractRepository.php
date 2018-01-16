@@ -1,8 +1,8 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Repositories;
+namespace jspaceboots\laracrud\Repositories;
 
-use jspaceboots\LaraCRUD\Helpers\CrudHelper;
+use jspaceboots\laracrud\Helpers\CrudHelper;
 use Illuminate\Database\Eloquent\Collection;
 
 class AbstractRepository
@@ -123,5 +123,10 @@ class AbstractRepository
         }
 
         return $values;
+    }
+
+    public function delete($id) {
+        $model = config('crud.namespaces.models') . $this->helper->getModelFromClass(get_called_class());
+        $model::destroy($id);
     }
 }

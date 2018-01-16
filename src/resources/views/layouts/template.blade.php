@@ -92,7 +92,9 @@
     </div>
 </div>
 
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+<form id="deleteModal" class="modal fade" tabindex="-1" role="dialog" method="POST">
+    {{ csrf_field() }}
+    {{ method_field('DELETE') }}
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -105,12 +107,12 @@
                 <p>Are you sure? There's no undo.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" onclick="window.location=document.getElementById('deleteModal').dataset.href">Delete</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
-</div>
+</form>
 
 @if(isset($modelCrudViews))
 <script>

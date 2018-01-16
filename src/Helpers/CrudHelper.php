@@ -1,6 +1,6 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Helpers;
+namespace jspaceboots\laracrud\Helpers;
 
 class CrudHelper {
 
@@ -34,5 +34,9 @@ class CrudHelper {
         }
 
         return $model;
+    }
+
+    public function getPathFromNamespace($namespace) {
+        return substr(str_replace('App', 'app', str_replace('\\', '/', $namespace)), 1);
     }
 }

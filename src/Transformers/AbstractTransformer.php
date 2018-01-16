@@ -1,6 +1,6 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Transformers;
+namespace jspaceboots\laracrud\Transformers;
 
 use Illuminate\Support\Facades\Schema;
 

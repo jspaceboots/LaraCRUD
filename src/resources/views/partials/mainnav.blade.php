@@ -18,6 +18,12 @@
                             </a>
                         </li>
                     @endforeach
+                    <li>
+                        <a href="{{route('_newentity')}}">
+                            <span class="sidebar-mini"><i class="ti-plus"></i></span>
+                            <span class="sidebar-normal">New Entity</span>
+                        </a>
+                    </li>
         @if (config('crud.useSubnav'))
                 </ul>
             </div>

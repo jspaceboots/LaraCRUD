@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "jspaceboots\\LaraCRUD\\": "src"
+            "jspaceboots\\laracrud\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "jspaceboots\\LaraCRUD\\": "tests"
+            "jspaceboots\\laracrud\\": "tests"
         }
     },
     "scripts": {
@@ -45,7 +45,7 @@
         },
         "laravel": {
             "providers": [
-                "jspaceboots\\LaraCRUD\\LaraCRUDServiceProvider"
+                "jspaceboots\\laracrud\\laracrudServiceProvider"
             ]
         }
     },

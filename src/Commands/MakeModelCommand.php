@@ -1,6 +1,6 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Commands;
+namespace jspaceboots\laracrud\Commands;
 
 use Illuminate\Console\Command;
 

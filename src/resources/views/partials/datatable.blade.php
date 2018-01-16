@@ -136,7 +136,7 @@ $makeLink = function ($limit, $offset, $sortField, $sortDir) use ($meta) {
                     @endif
                 @endforeach
                 <td style="text-align: right;">
-                    <a href="#" data-toggle="modal" data-target="#deleteModal" onclick="document.getElementById('deleteModal').dataset.href='{{route("delete_$routeName", ['id' => $row['id']])}}';"><i class="ti-trash"></i></a>
+                    <a href="#" data-toggle="modal" data-target="#deleteModal" onclick="document.getElementById('deleteModal').action='{{route("delete_$routeName", ['id' => $row['id']])}}';"><i class="ti-trash"></i></a>
                     <a href="{{route("edit_$routeName", ['id' => $row['id']])}}"><i class="ti-pencil-alt"></i></a>
                 </td>
             </tr>

@@ -1,9 +1,9 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Services;
+namespace jspaceboots\laracrud\Services;
 
-use jspaceboots\LaraCRUD\Interfaces\CrudServiceInterface;
-use jspaceboots\LaraCRUD\Helpers\CrudHelper;
+use jspaceboots\laracrud\Interfaces\CrudServiceInterface;
+use jspaceboots\laracrud\Helpers\CrudHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -74,7 +74,20 @@ class CrudService implements CrudServiceInterface {
     }
 
     public function delete(Request $request) {
+        $id = $request->route()->parameters['id'];
+        [$route, $model, $search, $offset, $limit, $sortBy, $filters] = $this->parseRequest($request);
+        $repoClass = config('crud.namespaces.repositories') . "{$model}Repository";
+        $repo = new $repoClass;
+        $repo->delete($id);
 
+        return [
+            'data' => [
+                'success' => true,
+                'message' => "$model $id deleted"
+            ],
+            'links' => [],
+            'meta' => []
+        ];
     }
 
     public function getModelById(Request $request) {
@@ -85,7 +98,7 @@ class CrudService implements CrudServiceInterface {
         $this->validate($request);
         [$route, $model, $search, $offset, $limit, $sortBy, $filters] = $this->parseRequest($request);
         $indexRoute = $route;
-        foreach(['new_', 'edit_', 'persist_'] as $prefix) {
+        foreach(['new_', 'edit_', 'persist_', 'update_'] as $prefix) {
             $indexRoute = str_replace($prefix, '', $route);
         }
 
@@ -93,6 +106,7 @@ class CrudService implements CrudServiceInterface {
         $factory = new $factoryClass;
         $params = $request->request->all();
         unset($params['_token']);
+        unset($params['_method']);
         $entity = $factory->persist($params);
 
         return [
@@ -154,7 +168,7 @@ class CrudService implements CrudServiceInterface {
     }
 
     private function getModelName($route) {
-        foreach(['edit_', 'persist_', 'new_'] as $prefix) {
+        foreach(['edit_', 'persist_', 'new_', 'delete_', 'update_'] as $prefix) {
             $route = str_replace($prefix, '', $route);
         }
         $model = str_replace(' ', '', ucwords(str_replace('_', ' ', $route)));

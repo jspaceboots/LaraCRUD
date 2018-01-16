@@ -1,14 +1,16 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Http\Controllers;
+namespace jspaceboots\laracrud\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use jspaceboots\LaraCRUD\Interfaces\CrudServiceInterface;
+use jspaceboots\laracrud\Interfaces\CrudServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CrudController extends Controller
 {
     public function index(Request $request, CrudServiceInterface $crudService) {
+
         $data = $crudService->read($request);
         if ($request->isJson()) {
             return response()->json($data);
@@ -37,6 +39,7 @@ class CrudController extends Controller
             return response()->json($data);
         }
 
+        Session::flash('success', 'Persisted');
         return redirect(route($data['meta']['redirect']));
     }
 
@@ -44,9 +47,26 @@ class CrudController extends Controller
 
         $request->request->add(['id', $id]);
         $data = $crudService->create($request);
+        if ($request->isJson()) {
+            return response()->json($data);
+        }
 
         return view('LaraCRUD::upsert', $data);
     }
 
+    public function delete($id, Request $request, CrudServiceInterface $crudService) {
 
+        $data = $crudService->delete($request, $id);
+        if ($request->isJson()) {
+            return response()->json($data);
+        }
+
+        Session::flash('success', $data['data']['message']);
+        return response()->redirectToRoute(str_replace('delete_', '', $request->route()->getName()));
+    }
+
+    public function newEntity() {
+
+        return view('LaraCRUD::newentity');
+    }
 }

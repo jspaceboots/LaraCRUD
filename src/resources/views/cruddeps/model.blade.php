@@ -17,6 +17,8 @@ class {{$model}} extends Model
 
     protected $table = '{{$table}}';
 
-    const validators = [];
-    const relationCrud = [];
+    const validators = [
+    ];
+    const relationCrud = [
+    ];
 }

@@ -1,4 +1,6 @@
 @php
+
+
     $stringTypes = [];
     $relationTypes = [];
     $datetimeTypes = [];
@@ -28,8 +30,12 @@
     }
 @endphp
 
-<form action="/{{request()->route()->uri()}}" method="POST">
+<form action="{{str_replace('/new', '', url()->current())}}" method="POST">
     {{ csrf_field() }}
+    @if ($meta['editing'])
+        {{ method_field('PATCH')  }}
+        <input type="hidden" name="id" value="{{$data['id']}}">
+    @endif
     <div style="display: flex; flex-wrap: wrap;">
         @foreach($stringTypes as $field)
         <div style="margin-right: 1em;">

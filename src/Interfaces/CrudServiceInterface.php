@@ -1,6 +1,6 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Interfaces;
+namespace jspaceboots\laracrud\Interfaces;
 
 use Illuminate\Http\Request;
 
