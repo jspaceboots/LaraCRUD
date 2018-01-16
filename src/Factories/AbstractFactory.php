@@ -1,6 +1,6 @@
 <?php
 
-namespace jspaceboots\LaraCRUD\Factories;
+namespace jspaceboots\laracrud\Factories;
 
 use jspaceboots\laracrud\Helpers\CrudHelper;
 

@@ -4,7 +4,7 @@ namespace {{ltrim(rtrim(config('crud.namespaces.models'), '\\'), '\\')}};
 
 use Illuminate\Database\Eloquent\Model;
 @if(config('crud.useUuids'))
-    use jspaceboots\LaraCRUD\Traits\UuidTrait;
+    use jspaceboots\laracrud\Traits\UuidTrait;
 @endif
 
 class {{$model}} extends Model
