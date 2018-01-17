@@ -65,6 +65,16 @@ class CrudController extends Controller
         return response()->redirectToRoute(str_replace('delete_', '', $request->route()->getName()));
     }
 
+    public function listentities(Request $request, CrudServiceInterface $crudService) {
+
+        $data = $crudService->listentities($request);
+        if ($request->isJson()) {
+            return response()->json($data);
+        }
+
+        return view('LaraCRUD::index', $data);
+    }
+
     public function newEntity() {
 
         return view('LaraCRUD::newentity');

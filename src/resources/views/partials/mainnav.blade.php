@@ -10,6 +10,12 @@
             <div class="collapse" id="coreModelsNav">
                 <ul class="nav">
         @endif
+                    <li {{$route == 'dashboard' ? "class=active" : ''}}>
+                        <a href="{{route('dashboard')}}">
+                            <span class="sidebar-mini">DB</span>
+                            <span class="sidebar-normal">Dashboard</span>
+                        </a>
+                    </li>
                     @foreach(config('crud.routing') as $crudRoute => $meta)
                         <li {{$route == $crudRoute ? "class=active" : ''}}>
                             <a href="{{route($meta && array_key_exists('name', $meta) ? $meta['name'] : $crudRoute)}}">
@@ -18,7 +24,7 @@
                             </a>
                         </li>
                     @endforeach
-                    <li>
+                    <li {{$route === '_newentity' ? 'class=active' : ''}}>
                         <a href="{{route('_newentity')}}">
                             <span class="sidebar-mini"><i class="ti-plus"></i></span>
                             <span class="sidebar-normal">New Entity</span>

@@ -15,5 +15,6 @@ Route::group(['middleware' => ['web', 'auth']], function() {
         }
     }
 
+    Route::get('crud', "$controller@listentities")->name('dashboard');
     Route::get('crud/new_entity', "$controller@newEntity")->name("_newentity");
 });

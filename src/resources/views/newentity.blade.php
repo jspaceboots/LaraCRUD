@@ -9,43 +9,68 @@
                     <p class="category">&nbsp;</p>
                 </div>
 
-                <form>
-                    <input type="text" class="form-control" placeholder="Entity Name">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <form>
+                                <input type="text" class="form-control" placeholder="Entity Name">
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Field</th>
-                                <th>Type</th>
-                                <th>Validators</th>
-                                <th>Relations</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th><a href='#' class="btn btn-primary" data-toggle="modal" data-target="#addFieldModal">+</a> Field</th>
+                                        <th>Type</th>
+                                        <th>Validators</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>name</td>
+                                            <td>string</td>
+                                            <td>string, maxlen:255</td>
+                                            <td style="text-align: right;">
+                                                <a href="#" data-toggle="modal" data-target="#deleteModal"><i class="ti-trash"></i></a>
+                                                <a href=""><i class="ti-pencil-alt"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-        </div>
-    </div>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th><button class="btn btn-primary">+</button> Related model</th>
+                                        <th>Type</th>
+                                        <th>Model property</th>
+                                        <th>Meta</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Spell</td>
+                                        <td>M:N</td>
+                                        <td>spells</td>
+                                        <td>
+                                            Through: wizards_spells<br />
+                                            FK Override: not_spell_id
+                                        </td>
+                                        <td style="text-align: right;">
+                                            <a href="#" data-toggle="modal" data-target="#deleteModal"><i class="ti-trash"></i></a>
+                                            <a href=""><i class="ti-pencil-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
 
-    <div id="addFieldModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Field</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <a data-dismiss="modal">Cancel</a>
-                    <button type="submit" class="btn btn-danger">Add Field</button>
+                        <div class="col-md-4">
+                            <ul id="tips">
+                                <li class="tip">Entity names must be Singular, CamelCased, and each word must be UpperCased</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

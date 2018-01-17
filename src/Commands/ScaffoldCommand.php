@@ -211,7 +211,7 @@ class ScaffoldCommand extends Command
 
         if ($pos) {
             foreach($this->fields as $type => $name) {
-                array_splice($migrationArray, $pos + 1, 0, "\$table->{$type}('{$name}');");
+                array_splice($migrationArray, $pos + 1, 0, "\$table->{$name}('{$type}');");
                 $pos = $pos + 1;
             }
         }

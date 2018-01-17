@@ -114,6 +114,57 @@
     </div>
 </form>
 
+<div id="addFieldModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Field</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="modal-body">
+                <div class="col-md-8">
+                    <label>Name</label>
+                    <input class="form-control" type="text" placeholder="media_type">
+                </div>
+                <div class="col-md-4">
+                    <label>Type</label>
+                    <select class="select2">
+                        @foreach(config('crud.fieldTypes') as $type)
+                            <option>{{$type}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <br />
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th><a href='#' class="btn btn-primary" onclick="addValidatorRow()">+</a> Validator</th>
+                            <th>Meta</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="addFieldValidators">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+            <div class="modal-footer">
+                <a href="#" data-dismiss="modal" onclick="clearAddFieldModal()">Cancel</a>
+                <button type="submit" class="btn btn-primary" onclick="addField()">Add Field</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addRelationModal" class="modal fade" tabindex="-1" role="dialog">
+
+</div>
+
 @if(isset($modelCrudViews))
 <script>
   function getSelectByName(name) {
@@ -150,14 +201,12 @@
     var name = action.substr(1);
     var modal = form.parentElement.parentElement.parentElement.parentElement;
     name = name.substr(0, name.indexOf('/'));
-    console.log(name);
     if (name == 'medias') {
       name = 'media';
     }
     if (name == 'manufacturers') {
       name = 'manufacturer_id';
     }
-
 
     var select = getSelectByName(name);
     $.post(form.getAttribute('action'), $(form).serialize() + '&modal=true', function(response) {
@@ -276,7 +325,41 @@
     }
   });
 
+  function validatorTypeChanged(event) {
+    var type = event.target.value;
+    if (type.indexOf(':')) {
+      var validator = type.substr(0, type.indexOf(':'));
+      var paramString = type.substr(type.indexOf(':') + 1);
+      var params = paramString.split(',');
+      var metaElem = event.target.parentNode.parentNode.lastChild.previousSibling;
+      params.forEach(function(name) {
+        $(metaElem).append('<input class="form-control" type="text" placeholder="' + name + '">');
+      });
+      /*
+      console.log(validator);
+      console.log(paramString);
+      console.log(params);
+      console.log(event.target.parentNode);
+      */
 
+      console.log();
+    }
+  }
+
+  function addValidatorRow() {
+    var options = [];
+    var fieldTypes = JSON.parse($('<textarea />').html('{{json_encode(config('crud.validators'))}}').text());
+    var types = fieldTypes.map(function(type) {
+      return '<option>' + type + '</option>';
+    });
+
+    $('#addFieldValidators').append("<tr><td><select class='select2' onchange='validatorTypeChanged(event)'>" + types.join() + "</select></td><td></td><td style='text-align: right;'><a href='#'><i class='ti-trash' onclick='deleteValidatorRow(event)'></i></a></td></tr>");
+  }
+
+  function deleteValidatorRow(event) {
+    var row = event.target.parentNode.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+  }
 </script>
 <script>
   @if(session()->has('success'))
@@ -288,6 +371,6 @@
   @if(session()->has('danger'))
     $.notify('{{session()->get('danger')}}', { type: 'danger' });
   @endif
-
 </script>
 </html>
+

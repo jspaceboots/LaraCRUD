@@ -102,12 +102,12 @@ class CrudService implements CrudServiceInterface {
             $indexRoute = str_replace($prefix, '', $route);
         }
 
-        $factoryClass = config('crud.namespaces.factories') . "{$model}Factory";
-        $factory = new $factoryClass;
+        $repositoryClass = config('crud.namespaces.repositories') . "${model}Repository";
+        $repo = new $repositoryClass;
         $params = $request->request->all();
         unset($params['_token']);
         unset($params['_method']);
-        $entity = $factory->persist($params);
+        $entity = $repo->persist($params);
 
         return [
             'data' => $entity->toArray(),
@@ -115,6 +115,19 @@ class CrudService implements CrudServiceInterface {
             'meta' => [
                 'redirect' => $indexRoute
             ]
+        ];
+    }
+
+    public function listentities(Request $request) {
+        $data = [];
+        foreach(config('crud.routing') as $key => $meta) {
+            $data[$key] = $meta;
+        }
+
+        return [
+            'data' => $data,
+            'links' => $this->getLinks(),
+            'meta' => []
         ];
     }
 
